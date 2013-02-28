@@ -71,6 +71,10 @@
 				//clear container
 				$container.empty();
 				$container.append("<div class='fstCon'><canvas id='ClusterChartCanvas' width='960' height='800'></canvas></div>");
+				
+				//first sort the children
+				var childrenData = data.children;
+				app.newSort(childrenData,"value");
 			
 			    var w = 1000,
 				    h = 800,
@@ -82,12 +86,28 @@
 				var stage = new createjs.Stage(canvas);
 				
 				var circle = new createjs.Shape();
-			    circle.graphics.beginFill("green").drawCircle(0, 0, 5);
-			    
-			    circle.x = rx;
-			    circle.y = ry;
+			    circle.graphics.beginFill("green").drawCircle(rx, ry, 5).closePath();
 			    
 			    stage.addChild(circle);
+			    
+			    $.each(childrenData,function(i,item){
+					var angle = (360/data.children.length)*(Math.PI/180)*i;
+					var value = data.children[i].value;
+					
+					var outRx = rx + (Math.cos(angle)*value*10);
+					var outRy = ry + (Math.sin(angle)*value*10);
+					
+					circle.graphics.beginFill("rgba(255,102,0,0.75)")
+					                    .drawCircle(outRx, outRy , 5)
+					                    .closePath();
+					
+					circle.graphics.beginStroke("#999")
+						.moveTo(rx,ry)
+						.lineTo(outRx,outRy)
+						.closePath();
+						
+					stage.addChild(circle);
+				});
 			    
 			    stage.update();
 			}
