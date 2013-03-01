@@ -91,8 +91,8 @@
 			    stage.addChild(circle);
 			    
 			    $.each(childrenData,function(i,item){
-					var angle = (360/data.children.length)*(Math.PI/180)*i;
-					var value = data.children[i].value;
+					var angle = (360/childrenData.length)*(Math.PI/180)*i;
+					var value = childrenData[i].value;
 					
 					var outRx = rx + (Math.cos(angle)*value*10);
 					var outRy = ry + (Math.sin(angle)*value*10);
@@ -105,6 +105,27 @@
 						.moveTo(rx,ry)
 						.lineTo(outRx,outRy)
 						.closePath();
+						
+					var text = new createjs.Text(childrenData[i].name, "12px Arial", "#777");
+					var mx = 0;
+					var my = 0;
+					var ang = (360/childrenData.length)*i;
+					if(ang < 90){
+						mx = 5;
+						my = 0;
+					}else if(ang > 90 && ang < 180){
+						mx = -50;
+						my = 5;
+					}else if(ang > 180 && ang < 270){
+						mx = -50;
+						my = -5;
+					}else if(ang > 270 && ang < 360){
+						mx = 10;
+						my = -10;
+					}
+					text.x = outRx + mx;
+					text.y = outRy + my;
+					stage.addChild(text);
 						
 					stage.addChild(circle);
 				});
