@@ -149,7 +149,10 @@
 				
 				//draw the origin point
 				var circle = new createjs.Shape();
-			    circle.graphics.beginFill("green").drawCircle(rx, ry, 5).closePath();
+			    circle.graphics
+			    		.beginRadialGradientFill(["#CCFFCC", "#006400"], [0.1, 0.9], rx, ry, 1, rx, ry, 10)
+			    		.drawCircle(rx, ry, 10)
+			    		.closePath();
 			    stage.addChild(circle);
 			    
 			    stage.update();
