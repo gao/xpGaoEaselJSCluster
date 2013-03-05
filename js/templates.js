@@ -19,6 +19,15 @@ Handlebars.templates['tmpl-ClusterChart-Summary'] = Handlebars.template(function
   return "<div class=\"ClusterChartSummary\"></div>";}
 );
 
+// template --- tmpl-CurveTo ---
+Handlebars.templates['tmpl-CurveTo'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<div class=\"CurveTo\">\n		<div class=\"CurveToChart\"></div>\n	</div>";}
+);
+
 // template --- tmpl-MainScreen ---
 Handlebars.templates['tmpl-MainScreen'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -34,7 +43,7 @@ Handlebars.templates['tmpl-ReportHeader'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"Welcome\" class=\"menu active\">Welcome</li>\n		      <li data-nav=\"ClusterChart\" class=\"menu\">ClusterChart</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
+  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"Welcome\" class=\"menu active\">Welcome</li>\n		      <li data-nav=\"ClusterChart\" class=\"menu\">ClusterChart</li>\n		      <li data-nav=\"CurveTo\" class=\"menu\">CurveTo</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-Welcome ---

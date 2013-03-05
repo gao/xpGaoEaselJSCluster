@@ -24,6 +24,8 @@
             		  brite.display("Welcome");
             		}else if(menu == "ClusterChart"){
             		  brite.display("ClusterChart");
+            		}else if(menu == "CurveTo"){
+            		  brite.display("CurveTo");
             		}
             	}
             }
