@@ -42,8 +42,8 @@
 					var angle = (360/childrenData.length)*(Math.PI/180)*i;
 					var weight = childrenData[i].weight;
 					
-					var outRx = rx + (Math.cos(angle)*weight*20);
-					var outRy = ry + (Math.sin(angle)*weight*20);
+					var outRx = rx + (Math.cos(angle)*weight*40);
+					var outRy = ry + (Math.sin(angle)*weight*40);
 					
 					var container = new createjs.Container();
 					container.x = outRx;
