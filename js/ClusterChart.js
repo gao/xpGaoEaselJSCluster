@@ -2,7 +2,6 @@
 
     (function ($) {
         brite.registerView("ClusterChart",  {
-        	loadTmpl : true,
 			emptyParent : true,
 			parent:".MainScreen-main"
 		}, {
@@ -14,89 +13,43 @@
             postDisplay:function (data, config) {
                 var view = this;
                 var $e = view.$el;
-                
-                var viewName = "summary";
-				view.viewName = viewName;
-				view.reportType = "BATCH";
-                
-                view.showView(viewName);
-			},
-			
-			getAllData: function(viewBy){
-				var view = this;
-				var dfd = $.Deferred();
-				app.getSummary(view.reportType,"common",viewBy).done(function(data){
-					var dataSet = {};
-					if(data.items!=null){
-						dataSet = data.items[0];
-					}
-					dfd.resolve(dataSet);
-				});
-				return dfd.promise();
-			},
-			
-			showView: function(){
-				var view = this;
-				var $e = view.$el;
-				
-				//clean first
-				$e.bEmpty();
-				var html;
-				if(view.viewName == 'summary'){
-					html = app.render("tmpl-ClusterChart-Summary")
-				}else{
-					return false;
-				}
-		
-				$e.append($(html));
-				
-				
-				view.getAllData("day").done(function(dataAll){
-					showSummaryView.call(view,dataAll);
-				});
-				
-				return true;
-			}
-        });
-        
-        function showSummaryView(dataAll){
-        	var data = dataAll.data
-        	var view = this;
-			var $e = view.$el;
-        	var $container = $e.find(".ClusterChartSummary");
-        	if(typeof dataAll == "undefined"){
-				$container.html("");
-				$container.append("<div class='noData'>No Data!</div>");
-			}else{
-				//clear container
-				$container.empty();
+        		var $container = $e.find(".ClusterChartSummary");
 				$container.append("<div class='fstCon'><canvas id='ClusterChartCanvas' width='960' height='800'></canvas></div>");
 				
-				//first sort the children
+				data = data || {};
+				data.children = [];
+				
+				//generate data,weight between 1 and 10
+				for(var i=0; i< 30 ;i++){
+					var weight = RandomData(1,10);
+					data.children.push({"name": "User"+i,"weight":weight});
+				}
+				
+				//sort the weight
 				var childrenData = data.children;
-				app.newSort(childrenData,"value");
+				app.newSort(childrenData,"weight");
 			
-			    var w = 1000,
-				    h = 800,
+			    var w = 800,
+				    h = 600,
 				    rx = w / 2,
 				    ry = h / 2;
 				    
 				var canvas = $e.find("#ClusterChartCanvas")[0];
-			    
 				var stage = new createjs.Stage(canvas);
+				stage.enableMouseOver(20);
 				
 			    $.each(childrenData,function(i,item){
 					var angle = (360/childrenData.length)*(Math.PI/180)*i;
-					var value = childrenData[i].value;
+					var weight = childrenData[i].weight;
 					
-					var outRx = rx + (Math.cos(angle)*value*10);
-					var outRy = ry + (Math.sin(angle)*value*10);
+					var outRx = rx + (Math.cos(angle)*weight*20);
+					var outRy = ry + (Math.sin(angle)*weight*20);
 					
 					var container = new createjs.Container();
 					container.x = outRx;
 					container.y = outRy;
 					container.name = item.name;
-					container.value = item.value;
+					container.weight = item.weight;
 					
 					//draw the node
 					var node = new createjs.Shape();
@@ -108,7 +61,10 @@
 					
 					//add the click event for node
 					container.addEventListener("mouseover",function(evt){
-						console.log("-----mouseover-------");
+						var html = app.render("tmpl-section-hover",evt.target);
+						var $hoverBoxContainer = $e.find(".hoverBoxContainer");
+						$hoverBoxContainer.empty();
+						$hoverBoxContainer.append(html);
 					});
 					
 					stage.addChild(container);
@@ -157,7 +113,14 @@
 			    
 			    stage.update();
 			}
-		}
+			
+        });
         
+        // --------- Private Method --------- //
+		function RandomData(under, over){ 
+			return parseInt(Math.random()*(over-under) + under); 
+		}
+		// --------- /Private Method --------- //
+
     })(jQuery);
 })();

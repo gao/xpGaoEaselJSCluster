@@ -72,23 +72,13 @@ body {
 .ClusterChart {
   margin: 10px;
 }
-.ClusterChart path.arc {
-  fill: #fff;
+.ClusterChart canvas {
+  float: left;
 }
-.ClusterChart .node {
-  font-size: 12px;
-  pointer-events: none;
-}
-.ClusterChart ellipse.nodes {
-  stroke: #FB4100;
-  stroke-width: 1.5px;
-}
-.ClusterChart ellipse.origin {
-  stroke: #CCC;
-  stroke-width: 1px;
-}
-.ClusterChart .link {
-  stroke: #CCC;
-  stroke-width: 1.5px;
+.ClusterChart .hoverBoxContainer {
+  float: left;
+  font-size: 16px;
+  margin-top: 150px;
+  font-weight: bold;
 }
 

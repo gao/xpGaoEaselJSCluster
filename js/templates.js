@@ -7,16 +7,25 @@ Handlebars.templates['tmpl-ClusterChart'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ClusterChart\"></div>";}
+  return "<div class=\"ClusterChart\">\n		<div class=\"ClusterChartSummary\"></div>\n		<div class=\"hoverBoxContainer\"></div>\n	</div>";}
 );
 
-// template --- tmpl-ClusterChart-Summary ---
-Handlebars.templates['tmpl-ClusterChart-Summary'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+// template --- tmpl-section-hover ---
+Handlebars.templates['tmpl-section-hover'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
-  
+  var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  return "<div class=\"ClusterChartSummary\"></div>";}
+  buffer += "<div class=\"hoverDiv\">\n		<span>Name:";
+  foundHelper = helpers.name;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "</span><br>\n		<span>Weight:";
+  foundHelper = helpers.weight;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.weight; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "</span>\n	</div>";
+  return buffer;}
 );
 
 // template --- tmpl-CurveTo ---

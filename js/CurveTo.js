@@ -2,7 +2,6 @@
 
     (function ($) {
         brite.registerView("CurveTo",  {
-        	loadTmpl : true,
 			emptyParent : true,
 			parent:".MainScreen-main"
 		}, {
